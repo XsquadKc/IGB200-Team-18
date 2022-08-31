@@ -32,7 +32,7 @@ public struct ChanceCard
 public struct FacultyCard
 {
     public string name;
-    public Vector3 modifiers;
+    public Modifier modifiers;
 
 }
 [System.Serializable]
