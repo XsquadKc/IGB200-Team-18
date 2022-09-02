@@ -17,7 +17,7 @@ public struct ChanceCard
 
     public void AddToHand()
     {
-
+        GameManager.Instance.playerHand.Add(this);
     }
 
     public void SpecialFunction(int functionID)
