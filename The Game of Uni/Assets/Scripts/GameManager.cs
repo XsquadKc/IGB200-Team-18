@@ -43,13 +43,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ScoreUpdate();
         scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=\"green\">" + socialScore + " Social</color>\n"
-            + " <color=\"blue\"> " + experienceScore + " Experience</color>\n"
+            + "<color=\"blue\"> " + experienceScore + " Experience</color>\n"
             + "<color=\"red\">" + knowledgeScore + " Knowledge </color >";
     }
 
-    void ScoreUpdate()
+    public void ScoreUpdate()
     {
         socialScore += playerCard.modifiers.S;
         experienceScore += playerCard.modifiers.E;
