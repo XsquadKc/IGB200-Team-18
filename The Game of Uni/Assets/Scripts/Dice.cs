@@ -7,6 +7,7 @@ using UnityEngine;
 public class Dice : MonoBehaviour
 {
     public GameObject TextBox;
+    public GameObject diceButton;
     public int Roll;
     public int value;
 
@@ -28,7 +29,7 @@ public class Dice : MonoBehaviour
     {
         Roll = Random.Range(1, 7);
         value += Roll;
-        TextBox.GetComponent<TextMeshProUGUI> ().text = "" + Roll;
+        TextBox.GetComponent<TextMeshProUGUI>().text = Roll.ToString();
     }
 
 

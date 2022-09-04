@@ -9,10 +9,6 @@ using TMPro;
 public class MiniGameManager : MonoBehaviour
 {
 
-    
-
-
-
     public Question[] questions;
     private static List<Question> unansweredQuestions;
 
@@ -34,10 +30,11 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    private GameManager gameManager;
 
     private void Start()
     {
-        
+        gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
 
         if (unansweredQuestions == null || unansweredQuestions.Count == 0)
         {
@@ -57,8 +54,10 @@ public class MiniGameManager : MonoBehaviour
         factText.text = currentQuestion.fact;
         remainingQuestions -= 1;
 
-        if (remainingQuestions == 0)
+        if (remainingQuestions <= 0)
         {
+            PlayerPrefs.SetInt("exam", 1);
+            gameManager.examComplete = true;
             SceneManager.LoadScene(sceneName: "SampleScene");
 
             

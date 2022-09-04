@@ -3,35 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Cards : MonoBehaviour
 {
-
+    public GameObject gameManager;
+    private void Start()
+    {
+       // gameManager = GameObject.FindGameObjectWithTag("GM");
+    }
 }
 [System.Serializable]
 public struct ChanceCard
 {
     public string name;
-    public GameObject prefab;
+    public Sprite sprite;
     public bool choice;
     public bool holdable;
     public Modifier modifiers;
     public int specialFunction;
+    
 
     public void AddToHand()
     {
-        GameManager.Instance.playerHand.Add(this);
+        //gameManager.playerHand.Add(this);
     }
 
-    public void SpecialFunction(int functionID)
-    {
-        if (functionID == 0)
-        {
-            return;
-        }
-    }
 }
 [System.Serializable]
 public struct FacultyCard
 {
     public string name;
+    public Sprite sprite;
     public Modifier modifiers;
 
 }

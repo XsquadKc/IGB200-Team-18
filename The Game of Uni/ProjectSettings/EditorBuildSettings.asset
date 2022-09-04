@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Exam Minigame.unity
-    guid: ba069b25977d3c14a906b0036eab5aba
-  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Exam Minigame.unity
+    guid: ba069b25977d3c14a906b0036eab5aba
   m_configObjects: {}
