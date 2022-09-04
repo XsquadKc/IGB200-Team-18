@@ -87,8 +87,8 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
         SceneManager.LoadScene(sceneName: "SampleScene");
-    }
 
+    }
 
     void FixedUpdate()
     {
