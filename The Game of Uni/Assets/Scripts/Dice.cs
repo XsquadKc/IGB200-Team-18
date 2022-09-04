@@ -15,7 +15,7 @@ public class Dice : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        value = 0;
+        //value = 0;
     }
 
     // Update is called once per frame
