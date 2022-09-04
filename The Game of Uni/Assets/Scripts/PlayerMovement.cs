@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform target;
     public float speed;
+    public int numTiles;
     private Vector3 previousPosition;
 
     public float x;
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        numTiles = 14;
         if (PlayerPrefs.HasKey("x") && PlayerPrefs.HasKey("y") && PlayerPrefs.HasKey("z") && PlayerPrefs.HasKey("sv"))
         {
             x = PlayerPrefs.GetFloat("x");
@@ -82,11 +84,20 @@ public class PlayerMovement : MonoBehaviour
         
 
         Vector3 a = transform.position;
-        Vector3 c = GameObject.Find("Tile" + script.value.ToString()).transform.position;
-        transform.position = Vector3.MoveTowards(a, c, speed);
-
+        //Vector3 b = target.position;
+        Vector3 c;
+        if (script.value <= numTiles-1)
+        {
+             c = GameObject.Find("Tile" + script.value.ToString()).transform.position;
+        }
+        else
+        {
+            c = GameObject.Find("Tile" + numTiles.ToString()).transform.position;
+        }
+        if (a != c)
+        {
+            transform.position = Vector3.MoveTowards(a, c, speed);
+        }
         
-
-
     }
 }
