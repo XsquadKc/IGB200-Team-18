@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Cards : MonoBehaviour
 {
-    public GameObject gameManager;
-    private void Start()
-    {
-       // gameManager = GameObject.FindGameObjectWithTag("GM");
-    }
+    
 }
 [System.Serializable]
 public struct ChanceCard

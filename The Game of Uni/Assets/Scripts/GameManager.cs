@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
             currentCard.GetComponent<Image>().sprite = drawnCard.sprite;
             currentCard.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform);
             currentCard.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
+            currentCard.GetComponent<RectTransform>().localScale = new Vector3(2, 2, 1);
             CardChoice(drawnCard.specialFunction);
         }
 
