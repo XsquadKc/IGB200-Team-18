@@ -36,11 +36,11 @@ public class GameManager : MonoBehaviour
     public float experienceScore;
     public float knowledgeScore;
     public bool examComplete;
-    GameObject scoreText;
-    GameObject degreeCard;
-    GameObject player;
-    GameObject choiceButtons;
-    GameObject continueButton;
+    public GameObject scoreText;
+    public GameObject degreeCard;
+    public GameObject player;
+    public GameObject choiceButtons;
+    public GameObject continueButton;
     [SerializeField]
     GameObject cardPrefab;
     int currentFunction;
@@ -65,11 +65,11 @@ public class GameManager : MonoBehaviour
         scoreText = GameObject.FindGameObjectWithTag("ScoreText");
         player = GameObject.FindGameObjectWithTag("Player");
         choiceButtons = GameObject.FindGameObjectWithTag("ChoiceButtons");
-        choiceButtons.SetActive(false);
         continueButton = GameObject.FindGameObjectWithTag("Continue");
         degreeCard = GameObject.FindGameObjectWithTag("DegreeCard");
         degreeCard.GetComponent<Image>().sprite = playerCard.sprite;
         continueButton.SetActive(false);
+        choiceButtons.SetActive(false);
         if (PlayerPrefs.HasKey("exam"))
         {
             examComplete = true;

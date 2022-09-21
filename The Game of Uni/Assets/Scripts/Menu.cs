@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+public class Menu : MonoBehaviour
+{
+
+
+    public void Play()
+    {
+        SceneManager.LoadScene(sceneName: "SampleScene");
+    }
+
+    public void Settings()
+    {
+
+    }
+
+    public void HowToPlay()
+    {
+
+    }
+
+    public void Quit()
+    {
+        
+    }
+}
