@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Scene scene = SceneManager.GetActiveScene();
-        if (scene.name == "SampleScene" && scoreText != null)
+        if (scene.name == "MainGame" && scoreText != null)
         {
             scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=\"green\">" + socialScore + " Social</color>\n"
             + "<color=\"blue\">" + experienceScore + " Experience</color>\n"
@@ -93,14 +93,14 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "SampleScene")
+        if (scene.name == "MainGame")
         {
             scoreText = GameObject.FindGameObjectWithTag("ScoreText");
             player = GameObject.FindGameObjectWithTag("Player");
             choiceButtons = GameObject.FindGameObjectWithTag("ChoiceButtons");
-            choiceButtons.SetActive(false);
             continueButton = GameObject.FindGameObjectWithTag("Continue");
             degreeCard = GameObject.FindGameObjectWithTag("DegreeCard");
+            choiceButtons.SetActive(false);
             continueButton.SetActive(false);
             if (PlayerPrefs.HasKey("exam"))
             {

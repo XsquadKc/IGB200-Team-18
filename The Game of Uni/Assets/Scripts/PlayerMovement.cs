@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
     public void Reset()
     {
         PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene(sceneName: "SampleScene");
+        SceneManager.LoadScene(sceneName: "MainGame");
 
     }
 
