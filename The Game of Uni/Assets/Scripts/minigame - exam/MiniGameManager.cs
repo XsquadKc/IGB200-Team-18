@@ -58,7 +58,7 @@ public class MiniGameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("exam", 1);
             gameManager.examComplete = true;
-            SceneManager.LoadScene(sceneName: "SampleScene");
+            SceneManager.LoadScene(sceneName: "MainGame");
 
             
 
