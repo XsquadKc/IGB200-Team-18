@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(this.gameObject);
+
+        
     }
 
     public float socialScore;
@@ -41,6 +43,9 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject choiceButtons;
     public GameObject continueButton;
+    public GameObject socialBar;
+    public GameObject experienceBar;
+    public GameObject knowledgeBar;
     [SerializeField]
     GameObject cardPrefab;
     int currentFunction;
@@ -62,18 +67,12 @@ public class GameManager : MonoBehaviour
         experienceScore = 0;
         knowledgeScore = 0;
         playerCard = degreeDeck[Random.Range(0, degreeDeck.Length)];
-        scoreText = GameObject.FindGameObjectWithTag("ScoreText");
-        player = GameObject.FindGameObjectWithTag("Player");
-        choiceButtons = GameObject.FindGameObjectWithTag("ChoiceButtons");
-        continueButton = GameObject.FindGameObjectWithTag("Continue");
-        degreeCard = GameObject.FindGameObjectWithTag("DegreeCard");
-        degreeCard.GetComponent<Image>().sprite = playerCard.sprite;
-        continueButton.SetActive(false);
-        choiceButtons.SetActive(false);
-        if (PlayerPrefs.HasKey("exam"))
+
+        if (SceneManager.GetActiveScene().name == "MainGame")
         {
-            examComplete = true;
+            setupObjectReferences();
         }
+        
     }
     
 
@@ -81,11 +80,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Scene scene = SceneManager.GetActiveScene();
-        if (scene.name == "MainGame" && scoreText != null)
+        if (scene.name == "MainGame")
         {
-            scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = "<color=\"green\">" + socialScore + " Social</color>\n"
-            + "<color=\"blue\">" + experienceScore + " Experience</color>\n"
-            + "<color=\"red\">" + knowledgeScore + " Knowledge </color >";
+            socialBar.GetComponent<RectTransform>().sizeDelta = new Vector2 (socialScore, 40);
+            experienceBar.GetComponent<RectTransform>().sizeDelta = new Vector2(experienceScore, 40);
+            knowledgeBar.GetComponent<RectTransform>().sizeDelta = new Vector2(knowledgeScore, 40);
         }
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -95,17 +94,25 @@ public class GameManager : MonoBehaviour
     {
         if (scene.name == "MainGame")
         {
-            scoreText = GameObject.FindGameObjectWithTag("ScoreText");
-            player = GameObject.FindGameObjectWithTag("Player");
-            choiceButtons = GameObject.FindGameObjectWithTag("ChoiceButtons");
-            continueButton = GameObject.FindGameObjectWithTag("Continue");
-            degreeCard = GameObject.FindGameObjectWithTag("DegreeCard");
-            choiceButtons.SetActive(false);
-            continueButton.SetActive(false);
-            if (PlayerPrefs.HasKey("exam"))
-            {
-                examComplete = true;
-            }
+            setupObjectReferences();
+        }
+    }
+
+    void setupObjectReferences()
+    {
+        scoreText = GameObject.FindGameObjectWithTag("ScoreText");
+        player = GameObject.FindGameObjectWithTag("Player");
+        choiceButtons = GameObject.FindGameObjectWithTag("ChoiceButtons");
+        continueButton = GameObject.FindGameObjectWithTag("Continue");
+        degreeCard = GameObject.FindGameObjectWithTag("DegreeCard");
+        socialBar = GameObject.FindGameObjectWithTag("Social Bar");
+        experienceBar = GameObject.FindGameObjectWithTag("Experience Bar");
+        knowledgeBar = GameObject.FindGameObjectWithTag("Knowledge Bar");
+        choiceButtons.SetActive(false);
+        continueButton.SetActive(false);
+        if (PlayerPrefs.HasKey("exam"))
+        {
+            examComplete = true;
         }
     }
 

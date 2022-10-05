@@ -3,19 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Minigame
-  - GM
-  - ScoreText
-  - Chance
-  - Canvas
-  - ChoiceButtons
-  - Continue
-  - DegreeCard
-  - LeftArrow
-  - RightArrow
-  - DownArrow
-  - UpArrow
+  tags: []
   layers:
   - Default
   - TransparentFX

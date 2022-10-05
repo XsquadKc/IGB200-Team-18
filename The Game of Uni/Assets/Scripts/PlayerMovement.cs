@@ -41,21 +41,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collider.tag == "Minigame" && gameManager.examComplete == false)
         {
-            x = transform.position.x;
-            PlayerPrefs.SetFloat("x", x);
-            y = transform.position.y;
-            PlayerPrefs.SetFloat("y", y);
-            z = transform.position.z;
-            PlayerPrefs.SetFloat("z", z);
-            savedValue = DiceScript.value;
-            PlayerPrefs.SetInt("sv", savedValue);
-            PlayerPrefs.SetInt("tile", currentTile);
-
-            previousPosition = transform.position;
-
-            collider.gameObject.AddComponent<BoxCollider>().isTrigger = false;
-            SceneManager.LoadScene(sceneName: "Exam Minigame");
-            Debug.Log("trigger event");
+            collider.gameObject.GetComponent<BoxCollider>().isTrigger = false;
+            runMinigame();
         }
         if (collider.tag == "Chance" && currentTile == DiceScript.value-1)
         {
@@ -79,14 +66,18 @@ public class PlayerMovement : MonoBehaviour
 
         previousPosition = transform.position;
 
+        gameManager.choiceButtons.SetActive(true);
+        gameManager.continueButton.SetActive(true);
+
+        
         SceneManager.LoadScene(sceneName: "Exam Minigame");
-       // Debug.Log("trigger event");
+        // Debug.Log("trigger event");
     }
 
     public void Reset()
     {
         PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene(sceneName: "MainGame");
+
 
     }
 
