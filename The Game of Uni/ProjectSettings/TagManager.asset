@@ -12,6 +12,10 @@ TagManager:
   - ChoiceButtons
   - Continue
   - DegreeCard
+  - LeftArrow
+  - RightArrow
+  - DownArrow
+  - UpArrow
   layers:
   - Default
   - TransparentFX
