@@ -13,9 +13,6 @@ public class PlayerMovement : MonoBehaviour
     public int currentTile;
     private GameManager gameManager;
 
-    public float x;
-    public float y;
-    public float z;
 
     // Start is called before the first frame update
     void Start()

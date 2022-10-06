@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     public bool examComplete;
     public GameObject scoreText;
     public GameObject degreeCard;
+    public GameObject degreeChoices;
     public GameObject player;
     public GameObject choiceButtons;
     public GameObject continueButton;
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
     public GameObject experienceBar;
     public GameObject knowledgeBar;
     public GameObject canvas;
+    public GameObject rollButton;
 
     public int tile;
     public Vector3 previousPosition;
@@ -60,6 +62,8 @@ public class GameManager : MonoBehaviour
 
     public FacultyCard playerCard;
     public List<ChanceCard> playerHand = new List<ChanceCard>();
+    public List<FacultyCard> cardChoices = new List<FacultyCard>();
+    public bool degreeChosen;
 
     [SerializeField]
     public ChanceCard[] chanceDeck;
@@ -72,7 +76,7 @@ public class GameManager : MonoBehaviour
         socialScore = 0;
         experienceScore = 0;
         knowledgeScore = 0;
-        playerCard = degreeDeck[Random.Range(0, degreeDeck.Length)];
+        
 
         if (SceneManager.GetActiveScene().name == "MainGame")
         {
@@ -101,7 +105,19 @@ public class GameManager : MonoBehaviour
         if (scene.name == "MainGame")
         {
             setupObjectReferences();
+            
+
         }
+    }
+
+    public void ChooseDegree(int choice)
+    {
+        playerCard = cardChoices[choice];
+        degreeChosen = true;
+        degreeChoices.SetActive(false);
+        degreeCard.GetComponent<Image>().sprite = playerCard.sprite;
+        degreeCard.SetActive(true);
+        rollButton.SetActive(true);
     }
 
     void setupObjectReferences()
@@ -109,6 +125,7 @@ public class GameManager : MonoBehaviour
         scoreText = GameObject.FindGameObjectWithTag("ScoreText");
         player = GameObject.FindGameObjectWithTag("Player");
         canvas = GameObject.FindGameObjectWithTag("Canvas");
+        rollButton = GameObject.FindGameObjectWithTag("RollButton");
 
         RectTransform[] canvasChildren = canvas.gameObject.GetComponentsInChildren<RectTransform>();
         for (int i = 0; i < canvasChildren.Length; i++)
@@ -123,6 +140,7 @@ public class GameManager : MonoBehaviour
             }
         }
         degreeCard = GameObject.FindGameObjectWithTag("DegreeCard");
+        degreeChoices = GameObject.FindGameObjectWithTag("DegreeChoices");
         degreeCard.GetComponent<Image>().sprite = playerCard.sprite;
         socialBar = GameObject.FindGameObjectWithTag("Social Bar");
         experienceBar = GameObject.FindGameObjectWithTag("Experience Bar");
@@ -130,13 +148,31 @@ public class GameManager : MonoBehaviour
         
         choiceButtons.SetActive(false);
         continueButton.SetActive(false);
+
+        while (cardChoices.Count < 3)
+        {
+            rollButton.SetActive(false);
+            degreeCard.SetActive(false);
+            FacultyCard tempCard = degreeDeck[Random.Range(0, degreeDeck.Length)];
+            if (!cardChoices.Contains(tempCard))
+            {
+                cardChoices.Add(tempCard);
+            }
+        }
+        degreeChoices.GetComponentsInChildren<Image>()[0].sprite = cardChoices[0].sprite;
+        degreeChoices.GetComponentsInChildren<Image>()[1].sprite = cardChoices[1].sprite;
+        degreeChoices.GetComponentsInChildren<Image>()[2].sprite = cardChoices[2].sprite;
     }
 
     public void ScoreUpdate()
     {
-        socialScore += playerCard.modifiers.S;
-        experienceScore += playerCard.modifiers.E;
-        knowledgeScore += playerCard.modifiers.K;
+        if (degreeChosen)
+        {
+            socialScore += playerCard.modifiers.S;
+            experienceScore += playerCard.modifiers.E;
+            knowledgeScore += playerCard.modifiers.K;
+        }
+        
     }
     public void PlayerTurn(string condition)
     {
