@@ -11,13 +11,11 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public int numTiles;
     public int currentTile;
-    private Vector3 previousPosition;
     private GameManager gameManager;
 
     public float x;
     public float y;
     public float z;
-    public int savedValue;
 
     // Start is called before the first frame update
     void Start()
@@ -25,15 +23,11 @@ public class PlayerMovement : MonoBehaviour
         gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
         currentTile = 0;
         numTiles = 14;
-        if (PlayerPrefs.HasKey("x") && PlayerPrefs.HasKey("y") && PlayerPrefs.HasKey("z") && PlayerPrefs.HasKey("sv") && PlayerPrefs.HasKey("tile"))
+        if (gameManager.previousPosition != new Vector3(0,0,0))
         {
-            x = PlayerPrefs.GetFloat("x");
-            y = PlayerPrefs.GetFloat("y");
-            z = PlayerPrefs.GetFloat("z");
-            DiceScript.value = PlayerPrefs.GetInt("sv");
-            currentTile = PlayerPrefs.GetInt("tile");
-            Vector3 posVec = new Vector3(x, y, z);
-            transform.position = posVec;
+            DiceScript.value = gameManager.savedValue;
+            currentTile = gameManager.tile;
+            transform.position = gameManager.previousPosition;
         }
     }
 
@@ -54,20 +48,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void runMinigame()
     {
-        x = transform.position.x;
-        PlayerPrefs.SetFloat("x", x);
-        y = transform.position.y;
-        PlayerPrefs.SetFloat("y", y);
-        z = transform.position.z;
-        PlayerPrefs.SetFloat("z", z);
-        savedValue = DiceScript.value;
-        PlayerPrefs.SetInt("sv", savedValue);
-        PlayerPrefs.SetInt("tile", currentTile);
-
-        previousPosition = transform.position;
-
-        gameManager.choiceButtons.SetActive(true);
-        gameManager.continueButton.SetActive(true);
+        gameManager.savedValue = DiceScript.value;
+        gameManager.previousPosition = transform.position;
+        gameManager.tile = currentTile;
 
         
         SceneManager.LoadScene(sceneName: "Exam Minigame");

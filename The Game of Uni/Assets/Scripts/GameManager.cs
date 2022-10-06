@@ -46,6 +46,12 @@ public class GameManager : MonoBehaviour
     public GameObject socialBar;
     public GameObject experienceBar;
     public GameObject knowledgeBar;
+    public GameObject canvas;
+
+    public int tile;
+    public Vector3 previousPosition;
+    public int savedValue;
+
     [SerializeField]
     GameObject cardPrefab;
     int currentFunction;
@@ -102,18 +108,28 @@ public class GameManager : MonoBehaviour
     {
         scoreText = GameObject.FindGameObjectWithTag("ScoreText");
         player = GameObject.FindGameObjectWithTag("Player");
-        choiceButtons = GameObject.FindGameObjectWithTag("ChoiceButtons");
-        continueButton = GameObject.FindGameObjectWithTag("Continue");
+        canvas = GameObject.FindGameObjectWithTag("Canvas");
+
+        RectTransform[] canvasChildren = canvas.gameObject.GetComponentsInChildren<RectTransform>();
+        for (int i = 0; i < canvasChildren.Length; i++)
+        {
+            if (canvasChildren[i].gameObject.CompareTag("ChoiceButtons"))
+            {
+                choiceButtons = canvasChildren[i].gameObject;
+            }
+            else if (canvasChildren[i].gameObject.CompareTag("Continue"))
+            {
+                continueButton = canvasChildren[i].gameObject;
+            }
+        }
         degreeCard = GameObject.FindGameObjectWithTag("DegreeCard");
+        degreeCard.GetComponent<Image>().sprite = playerCard.sprite;
         socialBar = GameObject.FindGameObjectWithTag("Social Bar");
         experienceBar = GameObject.FindGameObjectWithTag("Experience Bar");
         knowledgeBar = GameObject.FindGameObjectWithTag("Knowledge Bar");
+        
         choiceButtons.SetActive(false);
         continueButton.SetActive(false);
-        if (PlayerPrefs.HasKey("exam"))
-        {
-            examComplete = true;
-        }
     }
 
     public void ScoreUpdate()

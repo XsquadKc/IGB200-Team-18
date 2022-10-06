@@ -254,6 +254,10 @@ MonoBehaviour:
   socialBar: {fileID: 0}
   experienceBar: {fileID: 0}
   knowledgeBar: {fileID: 0}
+  canvas: {fileID: 0}
+  tile: 0
+  previousPosition: {x: 0, y: 0, z: 0}
+  savedValue: 0
   cardPrefab: {fileID: 3271465241575691912, guid: f2e94c367ae6c0946836f6c278daea13, type: 3}
   injured: 0
   playerCard:
@@ -1065,7 +1069,6 @@ MonoBehaviour:
   x: 0
   y: 0
   z: 0
-  savedValue: 0
 --- !u!1 &280721276
 GameObject:
   m_ObjectHideFlags: 0
