@@ -61,7 +61,6 @@ public class GameManager : MonoBehaviour
     GameObject currentCard;
 
     public FacultyCard playerCard;
-    public List<ChanceCard> playerHand = new List<ChanceCard>();
     public List<FacultyCard> cardChoices = new List<FacultyCard>();
     public bool degreeChosen;
 
@@ -69,6 +68,15 @@ public class GameManager : MonoBehaviour
     public ChanceCard[] chanceDeck;
     [SerializeField]
     public FacultyCard[] degreeDeck;
+
+
+    public List<ChanceCard> playerHand = new List<ChanceCard>();
+    public List<GameObject> playerHandObjects = new List<GameObject>();
+    public GameObject handDeck;
+    public float handGap;
+    float handCardsAdded;
+    public GameObject handCardPrefab;
+
 
     // Start is called before the first frame update
     void Start()
@@ -82,7 +90,9 @@ public class GameManager : MonoBehaviour
         {
             setupObjectReferences();
         }
+
         
+
     }
     
 
@@ -95,8 +105,10 @@ public class GameManager : MonoBehaviour
             socialBar.GetComponent<RectTransform>().sizeDelta = new Vector2 (socialScore, 40);
             experienceBar.GetComponent<RectTransform>().sizeDelta = new Vector2(experienceScore, 40);
             knowledgeBar.GetComponent<RectTransform>().sizeDelta = new Vector2(knowledgeScore, 40);
+            FitCards();
         }
         SceneManager.sceneLoaded += OnSceneLoaded;
+
 
     }
 
@@ -145,7 +157,8 @@ public class GameManager : MonoBehaviour
         socialBar = GameObject.FindGameObjectWithTag("Social Bar");
         experienceBar = GameObject.FindGameObjectWithTag("Experience Bar");
         knowledgeBar = GameObject.FindGameObjectWithTag("Knowledge Bar");
-        
+        handDeck = GameObject.FindGameObjectWithTag("PlayerHand");
+
         choiceButtons.SetActive(false);
         continueButton.SetActive(false);
 
@@ -162,6 +175,9 @@ public class GameManager : MonoBehaviour
         degreeChoices.GetComponentsInChildren<Image>()[0].sprite = cardChoices[0].sprite;
         degreeChoices.GetComponentsInChildren<Image>()[1].sprite = cardChoices[1].sprite;
         degreeChoices.GetComponentsInChildren<Image>()[2].sprite = cardChoices[2].sprite;
+
+        handGap = 1f;
+        handCardsAdded = 0f;  
     }
 
     public void ScoreUpdate()
@@ -240,6 +256,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+    public void FitCards()
+    {
+        Transform[] children = handDeck.GetComponentsInChildren<Transform>();
+        if (playerHand.Count == 0) //if list is null, stop function
+            return;
+        if (children.Length != playerHand.Count)
+        {
+            
+            handCardsAdded = 0;
+            for (int i = 0; i < playerHand.Count; i++)
+            {
+                GameObject card = GameObject.Instantiate(handCardPrefab);
+                card = playerHandObjects[0]; //Reference to first image in  list
+
+                card.transform.position = handDeck.transform.position;
+                card.transform.position += new Vector3((handCardsAdded * handGap), 0, 0); // Moving card 1f to the right
+                card.transform.SetParent(handDeck.transform);
+
+                playerHandObjects.RemoveAt(0);
+                handCardsAdded++;
+            }
+        }
+        
+        
+        
+    }
 
 }
