@@ -17,6 +17,12 @@ TagManager:
   - Continue
   - DegreeChoices
   - RollButton
+  - LeftArrow
+  - UpArrow
+  - DownArrow
+  - RightArrow
+  - Enemy
+  - MGEPlayer
   layers:
   - Default
   - TransparentFX
