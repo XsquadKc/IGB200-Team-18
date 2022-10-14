@@ -23,6 +23,7 @@ TagManager:
   - RightArrow
   - Enemy
   - MGEPlayer
+  - GameManagerE
   layers:
   - Default
   - TransparentFX

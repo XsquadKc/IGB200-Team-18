@@ -7,7 +7,9 @@ public class MiniGameESpawnObstacles : MonoBehaviour
 
     public GameObject obstacle;
     public GameObject canvasObject;
-    
+
+    public MGEGameManager playerDead;
+    private GameObject manager;
 
     public float maxX;
     public float minX;
@@ -17,16 +19,27 @@ public class MiniGameESpawnObstacles : MonoBehaviour
     public float spawnTime;
 
 
+    private void Start()
+    {
+        manager = GameObject.FindGameObjectWithTag("GameManagerE");
+
+        playerDead = manager.GetComponent<MGEGameManager>();
+    }
 
 
     // Update is called once per frame
     void Update()
     {
-        if(Time.time > spawnTime)
+
+        if (playerDead.playerDestroyed == false)
         {
-            Spawn();
-            spawnTime = Time.time + timeBetweenSpawn;
+            if (Time.time > spawnTime)
+            {
+                Spawn();
+                spawnTime = Time.time + timeBetweenSpawn;
+            }
         }
+
     }
 
     void Spawn()

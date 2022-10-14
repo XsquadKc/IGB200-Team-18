@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MiniGameEPlayer : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class MiniGameEPlayer : MonoBehaviour
     private Vector2 playerDirection;
 
     private Vector2 screenbounds;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +33,7 @@ public class MiniGameEPlayer : MonoBehaviour
         {
             Debug.Log("out of area");
         }
+
     }
 
     private void FixedUpdate()
