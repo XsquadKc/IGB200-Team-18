@@ -30,17 +30,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Minigame" && gameManager.examComplete == false)
+        if (collider.tag == "Minigame" && currentTile == DiceScript.value - 1 && gameManager.examComplete == false)
         {
             collider.gameObject.GetComponent<BoxCollider>().isTrigger = false;
             runMinigame();
         }
-        if (collider.tag == "Chance" && currentTile == DiceScript.value-1)
+        if (collider.tag == "Chance" && currentTile == DiceScript.value - 1)
         {
             gameManager.PlayerTurn("chance");
         }
-
-
     }
 
     public void runMinigame()
@@ -51,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
 
         
         SceneManager.LoadScene(sceneName: "Exam Minigame");
-        // Debug.Log("trigger event");
     }
 
     public void Reset()
@@ -72,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
         if (currentTile < DiceScript.value)
         {
             b = GameObject.Find("Tile" + (currentTile + 1).ToString()).transform.position;
+            b.y = a.y;
 
             if (a != b)
             {
@@ -81,6 +79,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 currentTile += 1;
             }
+        }
+        else
+        {
+            gameManager.moving = false;
         }
         
         

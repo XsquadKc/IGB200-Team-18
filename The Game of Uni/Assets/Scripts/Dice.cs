@@ -10,12 +10,13 @@ public class Dice : MonoBehaviour
     public GameObject diceButton;
     public int Roll;
     public int value;
-
+    private GameManager gameManager;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
         //value = 0;
     }
 
@@ -30,6 +31,7 @@ public class Dice : MonoBehaviour
         Roll = Random.Range(1, 7);
         value += Roll;
         TextBox.GetComponent<TextMeshProUGUI>().text = Roll.ToString();
+        gameManager.moving = true;
     }
 
 

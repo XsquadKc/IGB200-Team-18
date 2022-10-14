@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     public int tile;
     public Vector3 previousPosition;
     public int savedValue;
+    public bool moving;
 
     [SerializeField]
     GameObject cardPrefab;
@@ -71,7 +72,6 @@ public class GameManager : MonoBehaviour
 
 
     public List<ChanceCard> playerHand = new List<ChanceCard>();
-    public List<GameObject> playerHandObjects = new List<GameObject>();
     public GameObject handDeck;
     public float handGap;
     float handCardsAdded;
@@ -106,6 +106,14 @@ public class GameManager : MonoBehaviour
             experienceBar.GetComponent<RectTransform>().sizeDelta = new Vector2(experienceScore, 40);
             knowledgeBar.GetComponent<RectTransform>().sizeDelta = new Vector2(knowledgeScore, 40);
             FitCards();
+            if (moving)
+            {
+                player.GetComponent<Animator>().SetBool("Moving",true);
+            }
+            else
+            {
+                player.GetComponent<Animator>().SetBool("Moving", false);
+            }
         }
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -263,18 +271,24 @@ public class GameManager : MonoBehaviour
             return;
         if (children.Length != playerHand.Count)
         {
-            
+            if (children.Length > 1)
+            {
+                for (int i = 1; i < children.Length; i++)
+                {
+                    GameObject.Destroy(children[i].gameObject);
+                }
+            }
             handCardsAdded = 0;
             for (int i = 0; i < playerHand.Count; i++)
             {
                 GameObject card = GameObject.Instantiate(handCardPrefab);
-                card = playerHandObjects[0]; //Reference to first image in  list
-
-                card.transform.position = handDeck.transform.position;
-                card.transform.position += new Vector3((handCardsAdded * handGap), 0, 0); // Moving card 1f to the right
+                card.GetComponent<Image>().sprite = playerHand[i].sprite; //Reference to first image in  list
                 card.transform.SetParent(handDeck.transform);
+                card.GetComponent<RectTransform>().anchoredPosition = new Vector2((handCardsAdded * handGap), 160);
+                card.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+                card.SetActive(true);
+                //card.GetComponent<Button>().OnPointerClick();
 
-                playerHandObjects.RemoveAt(0);
                 handCardsAdded++;
             }
         }
