@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     public int currentTile;
     private GameManager gameManager;
 
+    public GameObject enemy;
+    public int enemyCurrentTile;
+
 
     // Start is called before the first frame update
     void Start()
@@ -51,12 +54,6 @@ public class PlayerMovement : MonoBehaviour
         SceneManager.LoadScene(sceneName: "Exam Minigame");
     }
 
-    public void Reset()
-    {
-        PlayerPrefs.DeleteAll();
-
-
-    }
 
     void FixedUpdate()
     {
@@ -84,7 +81,41 @@ public class PlayerMovement : MonoBehaviour
         {
             gameManager.moving = false;
         }
+        if (gameManager.enemyMoving)
+        {
+            EnemyTurn();
+        }
         
         
+    }
+
+    void EnemyTurn()
+    {
+
+        if (gameManager.enemyValue > numTiles - 1)
+        {
+            gameManager.enemyValue = numTiles;
+        }
+        Vector3 a = enemy.transform.position;
+        Vector3 b;
+        if (enemyCurrentTile < gameManager.enemyValue)
+        {
+            b = GameObject.Find("Tile" + (enemyCurrentTile + 1).ToString()).transform.position;
+            b.y = a.y;
+
+            if (a != b)
+            {
+                enemy.transform.position = Vector3.MoveTowards(a, b, speed);
+            }
+            else
+            {
+                enemyCurrentTile += 1;
+            }
+        }
+        else
+        {
+            gameManager.enemyMoving = false;
+            DiceScript.diceButton.gameObject.SetActive(true);
+        }
     }
 }

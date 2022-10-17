@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
     public Vector3 previousPosition;
     public int savedValue;
     public bool moving;
+    public bool enemyMoving;
+    public int enemyValue;
 
     [SerializeField]
     GameObject cardPrefab;
@@ -119,6 +121,7 @@ public class GameManager : MonoBehaviour
 
 
     }
+    
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -218,7 +221,10 @@ public class GameManager : MonoBehaviour
         GameObject.Destroy(currentCard);
         ScoreUpdate();
         player.GetComponent<PlayerMovement>().DiceScript.TextBox.gameObject.SetActive(false);
-        player.GetComponent<PlayerMovement>().DiceScript.diceButton.gameObject.SetActive(true);
+        int enemyRoll = Random.Range(1, 7);
+        enemyValue += enemyRoll; 
+        enemyMoving = true;
+        
     }
 
     public void CardChoice(int functionID)
@@ -287,7 +293,8 @@ public class GameManager : MonoBehaviour
                 card.GetComponent<RectTransform>().anchoredPosition = new Vector2((handCardsAdded * handGap), 160);
                 card.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
                 card.SetActive(true);
-                //card.GetComponent<Button>().OnPointerClick();
+                Button button = card.GetComponent<Button>();
+                button.onClick.AddListener(() => CardChoice(playerHand[i].specialFunction));
 
                 handCardsAdded++;
             }

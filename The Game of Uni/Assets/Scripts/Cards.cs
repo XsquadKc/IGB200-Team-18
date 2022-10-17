@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Cards : MonoBehaviour
 {
-    
+    public static GameManager gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
 }
 [System.Serializable]
 public struct ChanceCard
@@ -18,7 +18,7 @@ public struct ChanceCard
 
     public void AddToHand()
     {
-        //gameManager.playerHand.Add(this);
+        Cards.gameManager.playerHand.Add(this);
     }
 
 }
