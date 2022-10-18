@@ -3,7 +3,25 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Chance
+  - GM
+  - DegreeChoices
+  - ScoreText
+  - Minigame
+  - DegreeCard
+  - Knowledge Bar
+  - Canvas
+  - RollButton
+  - PlayerHand
+  - ChoiceButtons
+  - Experience Bar
+  - Social Bar
+  - Enemy
+  - Continue
+  - Experience Minigame
+  - Social Minigame
+  - Knowledge Minigame
   layers:
   - Default
   - TransparentFX
