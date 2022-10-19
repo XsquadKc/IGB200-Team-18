@@ -18,13 +18,9 @@ public class Menu : MonoBehaviour
 
     }
 
-    public void HowToPlay()
-    {
-
-    }
 
     public void Quit()
     {
-        
+        Application.Quit();
     }
 }

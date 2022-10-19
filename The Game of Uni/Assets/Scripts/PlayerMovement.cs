@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
         currentTile = 0;
-        numTiles = 14;
+        numTiles = 56;
         if (gameManager.previousPosition != new Vector3(0,0,0))
         {
             DiceScript.value = gameManager.savedValue;
@@ -33,69 +33,81 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Knowledge Minigame" && currentTile == DiceScript.value - 1 && gameManager.examComplete == false)
+        if (this.gameObject.CompareTag("Player"))
         {
-            collider.gameObject.GetComponent<BoxCollider>().isTrigger = false;
-            runMinigame("Exam Minigame");
-        }
-        if (collider.tag == "Experience Minigame" && currentTile == DiceScript.value - 1 && gameManager.examComplete == false)
-        {
-            collider.gameObject.GetComponent<BoxCollider>().isTrigger = false;
-            runMinigame("Experience Mini-game");
-        }
-        if (collider.tag == "Social Minigame" && currentTile == DiceScript.value - 1 && gameManager.examComplete == false)
-        {
-            collider.gameObject.GetComponent<BoxCollider>().isTrigger = false;
-            runMinigame("Social Mini-game");
-        }
-        if (collider.tag == "Chance" && currentTile == DiceScript.value - 1)
-        {
-            gameManager.PlayerTurn("chance");
+            if (collider.tag == "Knowledge Minigame" && currentTile == DiceScript.value - 1 && gameManager.knowledgeComplete == false)
+            {
+                collider.gameObject.GetComponent<BoxCollider>().isTrigger = false;
+                runMinigame("Exam Minigame");
+            }
+            if (collider.tag == "Experience Minigame" && currentTile == DiceScript.value - 1 && gameManager.experienceComplete == false)
+            {
+                collider.gameObject.GetComponent<BoxCollider>().isTrigger = false;
+                runMinigame("Experience Mini-game");
+            }
+            if (collider.tag == "Social Minigame" && currentTile == DiceScript.value - 1 && gameManager.socialComplete == false)
+            {
+                collider.gameObject.GetComponent<BoxCollider>().isTrigger = false;
+                runMinigame("Social Mini-game");
+            }
+            if (collider.tag == "Chance" && currentTile == DiceScript.value - 1)
+            {
+                gameManager.PlayerTurn("chance");
+            }
         }
     }
 
     public void runMinigame(string name)
     {
-        gameManager.savedValue = DiceScript.value;
-        gameManager.previousPosition = transform.position;
-        gameManager.tile = currentTile;
+        if (this.gameObject.CompareTag("Player"))
+        {
+            gameManager.savedValue = DiceScript.value;
+            gameManager.previousPosition = transform.position;
+            gameManager.tile = currentTile;
 
-        
-        SceneManager.LoadScene(sceneName: name);
+
+            SceneManager.LoadScene(sceneName: name);
+        }
     }
 
 
     void FixedUpdate()
     {
-        if (DiceScript.value > numTiles - 1)
+        if (this.gameObject.CompareTag("Player"))
         {
-            DiceScript.value = numTiles;
-        }
-        Vector3 a = transform.position;
-        Vector3 b;
-        if (currentTile < DiceScript.value)
-        {
-            b = GameObject.Find("Tile" + (currentTile + 1).ToString()).transform.position;
-            b.y = a.y;
-
-            if (a != b)
+            if (DiceScript.value > numTiles - 1)
             {
-                transform.position = Vector3.MoveTowards(a, b, speed);
+                DiceScript.value = numTiles;
+            }
+            Vector3 a = transform.position;
+            Vector3 b;
+            if (currentTile < DiceScript.value)
+            {
+                b = GameObject.Find("Tile" + (currentTile + 1).ToString()).transform.position;
+                b.y = a.y;
+
+                if (a != b)
+                {
+                    transform.position = Vector3.MoveTowards(a, b, speed);
+                }
+                else
+                {
+                    currentTile += 1;
+                }
             }
             else
             {
-                currentTile += 1;
+                gameManager.moving = false;
+            }
+            
+        }
+        else if (this.gameObject.CompareTag("Enemy"))
+        {
+            if (gameManager.enemyMoving)
+            {
+                EnemyTurn();
             }
         }
-        else
-        {
-            gameManager.moving = false;
-        }
-        if (gameManager.enemyMoving)
-        {
-            EnemyTurn();
-        }
-        
         
     }
 
@@ -106,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
         {
             gameManager.enemyValue = numTiles;
         }
-        Vector3 a = enemy.transform.position;
+        Vector3 a = this.transform.position;
         Vector3 b;
         if (enemyCurrentTile < gameManager.enemyValue)
         {
@@ -115,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (a != b)
             {
-                enemy.transform.position = Vector3.MoveTowards(a, b, speed);
+                this.transform.position = Vector3.MoveTowards(a, b, speed);
             }
             else
             {

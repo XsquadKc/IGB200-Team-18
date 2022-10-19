@@ -37,11 +37,14 @@ public class GameManager : MonoBehaviour
     public float socialScore;
     public float experienceScore;
     public float knowledgeScore;
-    public bool examComplete;
+    public bool knowledgeComplete;
+    public bool socialComplete;
+    public bool experienceComplete;
     public GameObject scoreText;
     public GameObject degreeCard;
     public GameObject degreeChoices;
     public GameObject player;
+    public GameObject enemy;
     public GameObject choiceButtons;
     public GameObject continueButton;
     public GameObject socialBar;
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour
     public GameObject knowledgeBar;
     public GameObject canvas;
     public GameObject rollButton;
+    public GameObject pauseMenu;
 
     public int tile;
     public Vector3 previousPosition;
@@ -116,10 +120,20 @@ public class GameManager : MonoBehaviour
             {
                 player.GetComponent<Animator>().SetBool("Moving", false);
             }
+            if (enemyMoving)
+            {
+                enemy.GetComponent<Animator>().SetBool("Moving", true);
+            }
+            else
+            {
+                enemy.GetComponent<Animator>().SetBool("Moving", false);
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                pauseMenu.SetActive(true);
+            }
         }
         SceneManager.sceneLoaded += OnSceneLoaded;
-
-
     }
     
 
@@ -128,9 +142,12 @@ public class GameManager : MonoBehaviour
         if (scene.name == "MainGame")
         {
             setupObjectReferences();
-            
-
         }
+    }
+
+    public void QuitToMenu()
+    {
+        SceneManager.LoadScene(sceneName: "Menu");
     }
 
     public void ChooseDegree(int choice)
@@ -147,8 +164,10 @@ public class GameManager : MonoBehaviour
     {
         scoreText = GameObject.FindGameObjectWithTag("ScoreText");
         player = GameObject.FindGameObjectWithTag("Player");
+        enemy = GameObject.FindGameObjectWithTag("Enemy");
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         rollButton = GameObject.FindGameObjectWithTag("RollButton");
+        pauseMenu = GameObject.FindGameObjectWithTag("Pause Menu");
 
         RectTransform[] canvasChildren = canvas.gameObject.GetComponentsInChildren<RectTransform>();
         for (int i = 0; i < canvasChildren.Length; i++)
@@ -169,24 +188,33 @@ public class GameManager : MonoBehaviour
         experienceBar = GameObject.FindGameObjectWithTag("Experience Bar");
         knowledgeBar = GameObject.FindGameObjectWithTag("Knowledge Bar");
         handDeck = GameObject.FindGameObjectWithTag("PlayerHand");
+        
 
         choiceButtons.SetActive(false);
         continueButton.SetActive(false);
+        pauseMenu.SetActive(false);
 
-        while (cardChoices.Count < 3)
+        if (!knowledgeComplete && !experienceComplete && !socialComplete)
         {
-            rollButton.SetActive(false);
-            degreeCard.SetActive(false);
-            FacultyCard tempCard = degreeDeck[Random.Range(0, degreeDeck.Length)];
-            if (!cardChoices.Contains(tempCard))
+            while (cardChoices.Count < 3)
             {
-                cardChoices.Add(tempCard);
+                rollButton.SetActive(false);
+                degreeCard.SetActive(false);
+                FacultyCard tempCard = degreeDeck[Random.Range(0, degreeDeck.Length)];
+                if (!cardChoices.Contains(tempCard))
+                {
+                    cardChoices.Add(tempCard);
+                }
             }
+            degreeChoices.GetComponentsInChildren<Image>()[0].sprite = cardChoices[0].sprite;
+            degreeChoices.GetComponentsInChildren<Image>()[1].sprite = cardChoices[1].sprite;
+            degreeChoices.GetComponentsInChildren<Image>()[2].sprite = cardChoices[2].sprite;
         }
-        degreeChoices.GetComponentsInChildren<Image>()[0].sprite = cardChoices[0].sprite;
-        degreeChoices.GetComponentsInChildren<Image>()[1].sprite = cardChoices[1].sprite;
-        degreeChoices.GetComponentsInChildren<Image>()[2].sprite = cardChoices[2].sprite;
-
+        else
+        {
+            degreeChoices.SetActive(false);
+        }
+        
         handGap = 1f;
         handCardsAdded = 0f;  
     }

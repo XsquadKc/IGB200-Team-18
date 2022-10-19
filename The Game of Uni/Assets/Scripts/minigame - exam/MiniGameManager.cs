@@ -56,8 +56,7 @@ public class MiniGameManager : MonoBehaviour
 
         if (remainingQuestions <= 0)
         {
-            PlayerPrefs.SetInt("exam", 1);
-            gameManager.examComplete = true;
+            gameManager.knowledgeComplete = true;
             SceneManager.LoadScene(sceneName: "MainGame");
 
             

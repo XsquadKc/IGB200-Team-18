@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class MinigameSocial : MonoBehaviour
 {
@@ -33,9 +34,10 @@ public class MinigameSocial : MonoBehaviour
     public GameObject RArrow;
 
     public GameObject canvas;
-    public float wait = 1f; 
+    public float wait = 1f;
 
 
+    private GameManager gameManager;
 
     public Pattern[] song;
     private static List<Pattern> unspawnedArrows;
@@ -61,6 +63,7 @@ public class MinigameSocial : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
         left = leftbutton.GetComponent<Animation>();
         right = rightbutton.GetComponent<Animation>();
         up = upbutton.GetComponent<Animation>();
@@ -96,8 +99,16 @@ public class MinigameSocial : MonoBehaviour
 
     void setArrow()
     {
-
-        currentArrow = unspawnedArrows[listPos];
+        if(listPos < unspawnedArrows.Count)
+        {
+            currentArrow = unspawnedArrows[listPos];
+        }
+        else
+        {
+            gameManager.socialComplete = true;
+            gameManager.socialScore += value;
+            SceneManager.LoadScene(sceneName: "MainGame");
+        }
         
         
     }
