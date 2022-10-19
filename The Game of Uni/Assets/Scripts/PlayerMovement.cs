@@ -33,10 +33,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Minigame" && currentTile == DiceScript.value - 1 && gameManager.examComplete == false)
+        if (collider.tag == "Knowledge Minigame" && currentTile == DiceScript.value - 1 && gameManager.examComplete == false)
         {
             collider.gameObject.GetComponent<BoxCollider>().isTrigger = false;
-            runMinigame();
+            runMinigame("Exam Minigame");
+        }
+        if (collider.tag == "Experience Minigame" && currentTile == DiceScript.value - 1 && gameManager.examComplete == false)
+        {
+            collider.gameObject.GetComponent<BoxCollider>().isTrigger = false;
+            runMinigame("Experience Mini-game");
+        }
+        if (collider.tag == "Social Minigame" && currentTile == DiceScript.value - 1 && gameManager.examComplete == false)
+        {
+            collider.gameObject.GetComponent<BoxCollider>().isTrigger = false;
+            runMinigame("Social Mini-game");
         }
         if (collider.tag == "Chance" && currentTile == DiceScript.value - 1)
         {
@@ -44,14 +54,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void runMinigame()
+    public void runMinigame(string name)
     {
         gameManager.savedValue = DiceScript.value;
         gameManager.previousPosition = transform.position;
         gameManager.tile = currentTile;
 
         
-        SceneManager.LoadScene(sceneName: "Exam Minigame");
+        SceneManager.LoadScene(sceneName: name);
     }
 
 
