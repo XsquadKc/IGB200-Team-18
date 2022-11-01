@@ -23,4 +23,9 @@ public class Menu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void Tutorial()
+    {
+        SceneManager.LoadScene(sceneName: "Tutorial");
+    }
 }

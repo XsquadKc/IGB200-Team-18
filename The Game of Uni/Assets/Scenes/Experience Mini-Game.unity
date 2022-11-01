@@ -978,7 +978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7924528, g: 0.078497685, b: 0.078497685, a: 0.6745098}
+  m_Color: {r: 0.7924528, g: 0.078497685, b: 0.078497685, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1276,6 +1276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacle: {fileID: 7589063533908772154, guid: aaf354b4fbeebfe4698e1f0a4c923d30, type: 3}
   canvasObject: {fileID: 1042948296}
+  playerDead: {fileID: 0}
   maxX: 3.5
   minX: 3
   maxY: -55

@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Social Mini-game.unity
     guid: 9058b88d0b9cba346a9ee5018db87ad7
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: d72c41cae36fda245966361828f5bb1f
   m_configObjects: {}
