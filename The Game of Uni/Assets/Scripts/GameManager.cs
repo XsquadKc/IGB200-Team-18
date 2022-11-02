@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
     public GameObject canvas;
     public GameObject rollButton;
     public GameObject pauseMenu;
+    public bool[] yearlyBonus = new bool[4];
+    public int yearNumber = 1;
 
     public int tile;
     public Vector3 previousPosition;
@@ -229,6 +231,57 @@ public class GameManager : MonoBehaviour
         }
         
     }
+
+    public void DegreePassive()
+    {
+        if (!yearlyBonus[yearNumber - 1])
+        {
+            if (playerCard.name == "Psychology")
+            {
+                //Gain a psych eval card once a year
+            }
+            if (playerCard.name == "Business")
+            {
+                //Gain a summer intern card once a year
+            }
+            if (playerCard.name == "Science")
+            {
+                //Gain studybug card once a year
+            }
+            if (playerCard.name == "Creative Industries")
+            {
+                //mprov card given at start of year
+            }
+            if (playerCard.name == "Health")
+            {
+                //Recover from a turn skip effect once a year (get recovery card at start of year)
+            }
+        }
+        if (playerCard.name == "Law")
+        {
+            //Once a year can reroll a turn
+        }
+        if (playerCard.name == "IT")
+        {
+            //Attempt to cheat on exam, decreased odds every repetition
+        }
+        
+        if (playerCard.name == "Maths")
+        {
+            //Once a year, alter the odds of a chance card to have either no negative effect, or no chance of negative effect
+        }
+        
+        if (playerCard.name == "Engineering")
+        {
+            //You have no choice but to accept all chance cards related to social, lower odds of success but doubled rewards
+
+        }
+        if (playerCard.name == "Education")
+        {
+            //Can put off gaining points from a chance card for 3 turns in exchange for increasing the value of all points gained or lost by x2
+        }
+    }
+
     public void PlayerTurn(string condition)
     {
         
@@ -248,6 +301,7 @@ public class GameManager : MonoBehaviour
     {
         GameObject.Destroy(currentCard);
         ScoreUpdate();
+        DegreePassive();
         player.GetComponent<PlayerMovement>().DiceScript.TextBox.gameObject.SetActive(false);
         int enemyRoll = Random.Range(1, 7);
         enemyValue += enemyRoll; 

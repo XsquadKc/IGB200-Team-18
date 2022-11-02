@@ -23,7 +23,7 @@ public class Dice : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        gameManager.yearNumber = (value + 1) / 14;
     }
 
     public void RandomGenerate()
