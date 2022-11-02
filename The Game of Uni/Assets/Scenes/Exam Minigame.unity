@@ -871,9 +871,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questions:
-  - fact: QUT is superior to UQ
+  - fact: Over 15% of Australians are  currently studying at University
     isTrue: 1
-  - fact: Team 18 is the best
+  - fact: There are more ants than humans
     isTrue: 1
   - fact: 4 x 4 = 18
     isTrue: 0
@@ -881,6 +881,24 @@ MonoBehaviour:
     isTrue: 1
   - fact: Sharks are fish
     isTrue: 0
+  - fact: Pie is 3.165
+    isTrue: 0
+  - fact: There are more women than men in the world
+    isTrue: 0
+  - fact: A century is 100 years
+    isTrue: 1
+  - fact: There are 366 days in a leap year
+    isTrue: 1
+  - fact: Ludwig Van Beethoven was a painter
+    isTrue: 0
+  - fact: The moon landing was in 1969
+    isTrue: 1
+  - fact: 'There are 9 Continents '
+    isTrue: 0
+  - fact: 25% of 50 = 25
+    isTrue: 0
+  - fact: The Moon and Sun control the tide
+    isTrue: 1
   factText: {fileID: 351609726}
   timeBetweenQuestions: 1
   trueAnswertext: {fileID: 421840999}
@@ -1420,7 +1438,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 16777215
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
