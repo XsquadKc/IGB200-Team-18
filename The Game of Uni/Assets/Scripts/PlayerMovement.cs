@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     public GameObject enemy;
     public int enemyCurrentTile;
 
+    public AudioSource pieceMove;
+    
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +26,9 @@ public class PlayerMovement : MonoBehaviour
         gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
         currentTile = 0;
         numTiles = 56;
+
+        pieceMove = GetComponent<AudioSource>();
+
         if (gameManager.previousPosition != new Vector3(0,0,0))
         {
             DiceScript.value = gameManager.savedValue;
@@ -139,5 +145,11 @@ public class PlayerMovement : MonoBehaviour
             gameManager.enemyMoving = false;
             DiceScript.diceButton.gameObject.SetActive(true);
         }
+    }
+
+
+    public void play()
+    {
+        pieceMove.Play();
     }
 }

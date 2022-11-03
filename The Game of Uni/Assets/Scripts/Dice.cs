@@ -12,11 +12,15 @@ public class Dice : MonoBehaviour
     public int value;
     private GameManager gameManager;
 
+    private AudioSource diceRoll;
+
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
+
+        diceRoll = GetComponent<AudioSource>();
         //value = 0;
     }
 
@@ -28,6 +32,7 @@ public class Dice : MonoBehaviour
 
     public void RandomGenerate()
     {
+        diceRoll.Play();
         Roll = Random.Range(1, 7);
         value += Roll;
         TextBox.GetComponent<TextMeshProUGUI>().text = Roll.ToString();
