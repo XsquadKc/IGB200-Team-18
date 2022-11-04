@@ -16,9 +16,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject enemy;
     public int enemyCurrentTile;
 
-    public AudioSource pieceMove;
-    
 
+    
+    private AudioSource piece;
+    
+    
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +29,8 @@ public class PlayerMovement : MonoBehaviour
         currentTile = 0;
         numTiles = 56;
 
-        pieceMove = GetComponent<AudioSource>();
+        
+        piece = GetComponent<AudioSource>();
 
         if (gameManager.previousPosition != new Vector3(0,0,0))
         {
@@ -150,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void play()
     {
-        pieceMove.Play();
+        piece.Play();
+        
     }
 }

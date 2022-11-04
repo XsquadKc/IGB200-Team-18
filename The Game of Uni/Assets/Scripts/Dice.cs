@@ -20,7 +20,8 @@ public class Dice : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
 
-        diceRoll = GetComponent<AudioSource>();
+        //diceRoll = GetComponent<AudioSource>();
+        diceRoll = GameObject.Find("Canvas").GetComponent<AudioSource>();
         //value = 0;
     }
 
