@@ -129,4 +129,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Left: {fileID: 913822747011065905}
-  speed: 400
+  speed: 500
