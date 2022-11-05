@@ -32,11 +32,16 @@ public class PlayerMovement : MonoBehaviour
         
         piece = GetComponent<AudioSource>();
 
-        if (gameManager.previousPosition != new Vector3(0,0,0))
+        if (gameManager.previousPosition != new Vector3(0,0,0) && this.gameObject.CompareTag("Player"))
         {
             DiceScript.value = gameManager.savedValue;
             currentTile = gameManager.tile;
             transform.position = gameManager.previousPosition;
+        }
+        else if (gameManager.previousPosition != new Vector3(0, 0, 0) && this.gameObject.CompareTag("Enemy"))
+        {
+            enemyCurrentTile = gameManager.enemyTile;
+            transform.position = gameManager.enemyPreviousPosition;
         }
     }
 
@@ -73,6 +78,8 @@ public class PlayerMovement : MonoBehaviour
             gameManager.savedValue = DiceScript.value;
             gameManager.previousPosition = transform.position;
             gameManager.tile = currentTile;
+            gameManager.enemyTile = enemyCurrentTile;
+            gameManager.enemyPreviousPosition = enemy.transform.position;
 
 
             SceneManager.LoadScene(sceneName: name);

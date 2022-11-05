@@ -59,6 +59,9 @@ public class GameManager : MonoBehaviour
     public int tile;
     public Vector3 previousPosition;
     public int savedValue;
+    public int enemyTile;
+    public Vector3 enemyPreviousPosition;
+    public int enemySavedValue;
     public bool moving;
     public bool enemyMoving;
     public int enemyValue;
@@ -169,7 +172,6 @@ public class GameManager : MonoBehaviour
         enemy = GameObject.FindGameObjectWithTag("Enemy");
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         rollButton = GameObject.FindGameObjectWithTag("RollButton");
-        pauseMenu = GameObject.FindGameObjectWithTag("Pause Menu");
 
         RectTransform[] canvasChildren = canvas.gameObject.GetComponentsInChildren<RectTransform>();
         for (int i = 0; i < canvasChildren.Length; i++)
@@ -182,9 +184,16 @@ public class GameManager : MonoBehaviour
             {
                 continueButton = canvasChildren[i].gameObject;
             }
+            else if (canvasChildren[i].gameObject.CompareTag("Pause Menu"))
+            {
+                pauseMenu = canvasChildren[i].gameObject;
+            }
+            else if (canvasChildren[i].gameObject.CompareTag("DegreeChoices"))
+            {
+                degreeChoices = canvasChildren[i].gameObject;
+            }
         }
         degreeCard = GameObject.FindGameObjectWithTag("DegreeCard");
-        degreeChoices = GameObject.FindGameObjectWithTag("DegreeChoices");
         degreeCard.GetComponent<Image>().sprite = playerCard.sprite;
         socialBar = GameObject.FindGameObjectWithTag("Social Bar");
         experienceBar = GameObject.FindGameObjectWithTag("Experience Bar");
@@ -196,7 +205,7 @@ public class GameManager : MonoBehaviour
         continueButton.SetActive(false);
         pauseMenu.SetActive(false);
 
-        if (!knowledgeComplete && !experienceComplete && !socialComplete)
+        if (!degreeChosen)
         {
             while (cardChoices.Count < 3)
             {
@@ -234,7 +243,7 @@ public class GameManager : MonoBehaviour
 
     public void DegreePassive()
     {
-        if (!yearlyBonus[yearNumber - 1])
+        if (!yearlyBonus[yearNumber])
         {
             if (playerCard.name == "Psychology")
             {
@@ -287,7 +296,7 @@ public class GameManager : MonoBehaviour
         
         if (condition == "chance")
         {
-            ChanceCard drawnCard = chanceDeck[Random.Range(0, chanceDeck.Length)];
+            ChanceCard drawnCard = chanceDeck[Random.Range(0, 2)];
             currentCard = Instantiate(cardPrefab);
             currentCard.GetComponent<Image>().sprite = drawnCard.sprite;
             currentCard.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform);
