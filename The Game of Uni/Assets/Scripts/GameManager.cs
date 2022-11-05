@@ -167,11 +167,9 @@ public class GameManager : MonoBehaviour
 
     void setupObjectReferences()
     {
-        scoreText = GameObject.FindGameObjectWithTag("ScoreText");
         player = GameObject.FindGameObjectWithTag("Player");
         enemy = GameObject.FindGameObjectWithTag("Enemy");
         canvas = GameObject.FindGameObjectWithTag("Canvas");
-        rollButton = GameObject.FindGameObjectWithTag("RollButton");
 
         RectTransform[] canvasChildren = canvas.gameObject.GetComponentsInChildren<RectTransform>();
         for (int i = 0; i < canvasChildren.Length; i++)
@@ -192,13 +190,37 @@ public class GameManager : MonoBehaviour
             {
                 degreeChoices = canvasChildren[i].gameObject;
             }
+            else if (canvasChildren[i].gameObject.CompareTag("RollButton"))
+            {
+                rollButton = canvasChildren[i].gameObject;
+            }
+            else if (canvasChildren[i].gameObject.CompareTag("ScoreText"))
+            {
+                scoreText = canvasChildren[i].gameObject;
+            }
+            else if (canvasChildren[i].gameObject.CompareTag("DegreeCard"))
+            {
+                degreeCard = canvasChildren[i].gameObject;
+                degreeCard.GetComponent<Image>().sprite = playerCard.sprite;
+
+            }
+            else if (canvasChildren[i].gameObject.CompareTag("Social Bar"))
+            {
+                socialBar = canvasChildren[i].gameObject;
+            }
+            else if (canvasChildren[i].gameObject.CompareTag("Experience Bar"))
+            {
+                experienceBar = canvasChildren[i].gameObject;
+            }
+            else if (canvasChildren[i].gameObject.CompareTag("Knowledge Bar"))
+            {
+                knowledgeBar = canvasChildren[i].gameObject;
+            }
+            else if (canvasChildren[i].gameObject.CompareTag("PlayerHand"))
+            {
+                handDeck = canvasChildren[i].gameObject;
+            }
         }
-        degreeCard = GameObject.FindGameObjectWithTag("DegreeCard");
-        degreeCard.GetComponent<Image>().sprite = playerCard.sprite;
-        socialBar = GameObject.FindGameObjectWithTag("Social Bar");
-        experienceBar = GameObject.FindGameObjectWithTag("Experience Bar");
-        knowledgeBar = GameObject.FindGameObjectWithTag("Knowledge Bar");
-        handDeck = GameObject.FindGameObjectWithTag("PlayerHand");
         
 
         choiceButtons.SetActive(false);

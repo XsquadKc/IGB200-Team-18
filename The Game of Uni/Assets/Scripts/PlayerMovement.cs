@@ -115,6 +115,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 gameManager.moving = false;
             }
+            if ((currentTile > 15 && currentTile < 28) || (currentTile > 42 && currentTile < 56))
+            {
+                this.gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            }
+            else
+            {
+                this.gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            }
             
         }
         else if (this.gameObject.CompareTag("Enemy"))
@@ -122,6 +130,14 @@ public class PlayerMovement : MonoBehaviour
             if (gameManager.enemyMoving)
             {
                 EnemyTurn();
+            }
+            if ((enemyCurrentTile > 15 && enemyCurrentTile < 28) || (enemyCurrentTile > 42 && enemyCurrentTile < 56))
+            {
+                this.gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            }
+            else
+            {
+                this.gameObject.GetComponent<SpriteRenderer>().flipX = true;
             }
         }
         
