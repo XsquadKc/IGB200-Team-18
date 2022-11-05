@@ -10,6 +10,8 @@ public class TutorialManager : MonoBehaviour
     public GameObject Screen2;
     public GameObject Screen3;
     public GameObject Screen4;
+    public GameObject Screen5;
+    public GameObject Screen6;
 
     [SerializeField] public bool MinigamePractice;
    
@@ -22,6 +24,8 @@ public class TutorialManager : MonoBehaviour
         Screen2.SetActive(false);
         Screen3.SetActive(false);
         Screen4.SetActive(false);
+        Screen5.SetActive(false);
+        Screen6.SetActive(false);
 
         MinigamePractice = false;
     }
@@ -57,9 +61,23 @@ public class TutorialManager : MonoBehaviour
     {
         Screen4.SetActive(true);
         Screen3.SetActive(false);
+        Screen5.SetActive(false);
     }
 
-   public void MinigameS()
+    public void Page5()
+    {
+        Screen5.SetActive(true);
+        Screen4.SetActive(false);
+        Screen6.SetActive(false);
+    }
+
+    public void Page6()
+    {
+        Screen6.SetActive(true);
+        Screen5.SetActive(false);
+    }
+
+    public void MinigameS()
     {
         SceneManager.LoadScene(4);
         Debug.Log("run minigame");
