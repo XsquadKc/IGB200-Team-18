@@ -105,8 +105,8 @@ public class MinigameSocial : MonoBehaviour
         }
         else
         {
-            gameManager.socialComplete = true;
-            gameManager.socialScore += value;
+            gameManager.miniGameComplete = true;
+            gameManager.socialScore += value/3;
             SceneManager.LoadScene(sceneName: "MainGame");
         }
         

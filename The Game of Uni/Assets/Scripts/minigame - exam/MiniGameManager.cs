@@ -56,7 +56,7 @@ public class MiniGameManager : MonoBehaviour
 
         if (remainingQuestions <= 0)
         {
-            gameManager.knowledgeComplete = true;
+            gameManager.miniGameComplete = true;
             SceneManager.LoadScene(sceneName: "MainGame");
 
             
@@ -92,8 +92,7 @@ public class MiniGameManager : MonoBehaviour
         animator.SetTrigger("True");
         if (currentQuestion.isTrue)
         {
-            //correct
-            //score
+            gameManager.knowledgeScore += 15;
           
         }
         else
@@ -112,9 +111,9 @@ public class MiniGameManager : MonoBehaviour
         animator.SetTrigger("False");
         if (!currentQuestion.isTrue)
         {
-            //correct
-            
-            
+            gameManager.knowledgeScore += 15;
+
+
 
         }
         else

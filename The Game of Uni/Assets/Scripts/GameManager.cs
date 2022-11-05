@@ -37,9 +37,7 @@ public class GameManager : MonoBehaviour
     public float socialScore;
     public float experienceScore;
     public float knowledgeScore;
-    public bool knowledgeComplete;
-    public bool socialComplete;
-    public bool experienceComplete;
+    public bool miniGameComplete;
     public GameObject scoreText;
     public GameObject degreeCard;
     public GameObject degreeChoices;
@@ -162,7 +160,7 @@ public class GameManager : MonoBehaviour
         degreeChoices.SetActive(false);
         degreeCard.GetComponent<Image>().sprite = playerCard.sprite;
         degreeCard.SetActive(true);
-        rollButton.SetActive(true);
+        CompleteTurn();
     }
 
     void setupObjectReferences()
@@ -227,6 +225,8 @@ public class GameManager : MonoBehaviour
         continueButton.SetActive(false);
         pauseMenu.SetActive(false);
 
+        player.GetComponent<PlayerMovement>().DiceScript.TextBox.gameObject.SetActive(false);
+
         if (!degreeChosen)
         {
             while (cardChoices.Count < 3)
@@ -249,7 +249,33 @@ public class GameManager : MonoBehaviour
         }
         
         handGap = 1f;
-        handCardsAdded = 0f;  
+        handCardsAdded = 0f;
+
+        if (miniGameComplete)
+        {
+            CompleteTurn();
+        }
+    }
+
+    public void NewDegree()
+    {
+        cardChoices.Clear();
+        cardChoices.Add(playerCard);
+        rollButton.SetActive(false);
+        degreeCard.SetActive(false);
+        while (cardChoices.Count < 3)
+        {
+            FacultyCard tempCard = degreeDeck[Random.Range(0, degreeDeck.Length)];
+            if (!cardChoices.Contains(tempCard))
+            {
+                cardChoices.Add(tempCard);
+            }
+        }
+        degreeChoices.GetComponentsInChildren<Image>()[0].sprite = cardChoices[0].sprite;
+        degreeChoices.GetComponentsInChildren<Image>()[1].sprite = cardChoices[1].sprite;
+        degreeChoices.GetComponentsInChildren<Image>()[2].sprite = cardChoices[2].sprite;
+
+        degreeChoices.SetActive(true);
     }
 
     public void ScoreUpdate()
@@ -330,14 +356,17 @@ public class GameManager : MonoBehaviour
     }
     public void CompleteTurn()
     {
-        GameObject.Destroy(currentCard);
+        if (currentCard != null)
+        {
+            GameObject.Destroy(currentCard);
+        }
         ScoreUpdate();
         DegreePassive();
         player.GetComponent<PlayerMovement>().DiceScript.TextBox.gameObject.SetActive(false);
         int enemyRoll = Random.Range(1, 7);
         enemyValue += enemyRoll; 
         enemyMoving = true;
-        
+        miniGameComplete = false;
     }
 
     public void CardChoice(int functionID)

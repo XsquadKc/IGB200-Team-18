@@ -37,7 +37,9 @@ public class Dice : MonoBehaviour
         Roll = Random.Range(1, 7);
         value += Roll;
         TextBox.GetComponent<TextMeshProUGUI>().text = Roll.ToString();
+        TextBox.SetActive(true);
         gameManager.moving = true;
+        gameManager.miniGameComplete = false;
     }
 
 

@@ -29,6 +29,7 @@ TagManager:
   - DownArrow
   - RightArrow
   - Pause Menu
+  - DegreeChange
   layers:
   - Default
   - TransparentFX

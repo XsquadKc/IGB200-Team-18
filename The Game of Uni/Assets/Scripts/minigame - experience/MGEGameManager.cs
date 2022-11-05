@@ -44,7 +44,7 @@ public class MGEGameManager : MonoBehaviour
 
             scoreEnd.text = score.ToString("0");
 
-            gameManager.experienceComplete = true;
+            gameManager.miniGameComplete = true;
             gameManager.experienceScore += score;
             SceneManager.LoadScene(sceneName: "MainGame");
         }
