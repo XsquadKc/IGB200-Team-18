@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIInteractions : MonoBehaviour
 {
@@ -28,4 +29,19 @@ public class UIInteractions : MonoBehaviour
     {
         gameManager.CompleteTurn();
     }
+
+    public void ChooseDegree(int choice)
+    {
+        gameManager.ChooseDegree(choice);
+    }
+
+    public void QuitToMenu()
+    {
+        SceneManager.LoadScene(sceneName: "Menu");
+    }
+    public void Settings()
+    {
+        SceneManager.LoadScene(sceneName: "Settings");
+    }
+
 }

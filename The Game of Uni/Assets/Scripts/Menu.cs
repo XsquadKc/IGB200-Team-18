@@ -15,9 +15,13 @@ public class Menu : MonoBehaviour
 
     public void Settings()
     {
-
+        SceneManager.LoadScene(sceneName: "Settings");
     }
 
+    public void Back()
+    {
+        SceneManager.LoadScene(sceneName: "Menu");
+    }
 
     public void Quit()
     {
@@ -28,4 +32,6 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName: "Tutorial");
     }
+
+
 }

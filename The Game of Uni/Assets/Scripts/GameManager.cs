@@ -151,10 +151,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void QuitToMenu()
-    {
-        SceneManager.LoadScene(sceneName: "Menu");
-    }
+   
 
     public void ChooseDegree(int choice)
     {
@@ -444,7 +441,6 @@ public class GameManager : MonoBehaviour
         }
         if (currentFunction == 5)
         {
-            chanceDeck[4].AddToHand();
             CompleteTurn();
         }
         if (currentFunction == 6)
