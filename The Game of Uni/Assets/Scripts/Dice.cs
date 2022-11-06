@@ -35,7 +35,7 @@ public class Dice : MonoBehaviour
     {
         diceRoll.Play();
         Roll = Random.Range(1, 7);
-        value = Mathf.Max( value + Roll, 57);
+        value = Mathf.Min( value + Roll, 57);
         TextBox.GetComponent<TextMeshProUGUI>().text = Roll.ToString();
         TextBox.SetActive(true);
         gameManager.moving = true;
