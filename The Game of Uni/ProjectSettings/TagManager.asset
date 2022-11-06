@@ -30,6 +30,7 @@ TagManager:
   - RightArrow
   - Pause Menu
   - DegreeChange
+  - EndScene
   layers:
   - Default
   - TransparentFX

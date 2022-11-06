@@ -67,6 +67,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 gameManager.NewDegree();
             }
+            if (collider.tag == "EndScene" && currentTile == DiceScript.value - 1)
+            {
+                SceneManager.LoadScene("End Scene");
+            }
         }
     }
 
