@@ -59,8 +59,6 @@ public class MiniGameManager : MonoBehaviour
             gameManager.miniGameComplete = true;
             SceneManager.LoadScene(sceneName: "MainGame");
 
-            
-
         }
 
         if (currentQuestion.isTrue)

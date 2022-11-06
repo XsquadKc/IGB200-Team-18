@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     public GameObject canvas;
     public GameObject rollButton;
     public GameObject pauseMenu;
-    public bool[] yearlyBonus = new bool[4];
+    public bool[] yearlyBonus = new bool[5];
     public int yearNumber = 1;
 
     public int tile;
@@ -63,6 +63,9 @@ public class GameManager : MonoBehaviour
     public bool moving;
     public bool enemyMoving;
     public int enemyValue;
+
+    public bool hyperFocussed;
+    public int turnsSinceInternship;
 
     [SerializeField]
     GameObject cardPrefab;
@@ -286,6 +289,11 @@ public class GameManager : MonoBehaviour
             experienceScore += playerCard.modifiers.E;
             knowledgeScore += playerCard.modifiers.K;
         }
+        if (turnsSinceInternship < 5)
+        {
+            experienceScore += 3;
+            turnsSinceInternship++;
+        }
         
     }
 
@@ -344,7 +352,7 @@ public class GameManager : MonoBehaviour
         
         if (condition == "chance")
         {
-            ChanceCard drawnCard = chanceDeck[Random.Range(0, 2)];
+            ChanceCard drawnCard = chanceDeck[Random.Range(0, chanceDeck.Length)];
             currentCard = Instantiate(cardPrefab);
             currentCard.GetComponent<Image>().sprite = drawnCard.sprite;
             currentCard.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform);
@@ -371,14 +379,29 @@ public class GameManager : MonoBehaviour
 
     public void CardChoice(int functionID)
     {
+        currentFunction = functionID;
         if (functionID == 1)
         {
-            currentFunction = 1;
             choiceButtons.SetActive(true);
         }
         if (functionID == 2)
         {
-            currentFunction = 2;
+            continueButton.SetActive(true);
+        }
+        if (functionID == 3)
+        {
+            continueButton.SetActive(true);
+        }
+        if (functionID == 4)
+        {
+            continueButton.SetActive(true);
+        }
+        if (functionID == 5)
+        {
+            continueButton.SetActive(true);
+        }
+        if (functionID == 6)
+        {
             continueButton.SetActive(true);
         }
     }
@@ -408,6 +431,25 @@ public class GameManager : MonoBehaviour
                 socialScore += 10;
                 knowledgeScore += 10;
             }
+            CompleteTurn();
+        }
+        if (currentFunction == 3)
+        {
+            CompleteTurn();
+        }
+        if (currentFunction == 4)
+        {
+            hyperFocussed = true;
+            CompleteTurn();
+        }
+        if (currentFunction == 5)
+        {
+            chanceDeck[4].AddToHand();
+            CompleteTurn();
+        }
+        if (currentFunction == 6)
+        {
+            turnsSinceInternship = 0;
             CompleteTurn();
         }
     }

@@ -106,7 +106,16 @@ public class MinigameSocial : MonoBehaviour
         else
         {
             gameManager.miniGameComplete = true;
-            gameManager.socialScore += value/3;
+            if (!gameManager.hyperFocussed)
+            {
+                gameManager.socialScore += value / 3;
+            }
+            else
+            {
+                gameManager.socialScore += (value / 3)*2;
+                gameManager.hyperFocussed = false;
+            }
+
             SceneManager.LoadScene(sceneName: "MainGame");
         }
         

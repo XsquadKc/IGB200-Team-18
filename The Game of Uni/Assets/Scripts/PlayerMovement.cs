@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
         currentTile = 0;
-        numTiles = 56;
+        numTiles = 57;
 
         
         piece = GetComponent<AudioSource>();
